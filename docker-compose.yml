@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      command: sh -c 'npm install; npm run dev'
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      NODE_ENV: development
+      JWT_SECRET: secret-key
+      DB_USERNAME: postgres
+      DB_PASSWORD: Thomas44
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: Prueba-Tecnica
+    volumes:
+      - /home/thomas/Escritorio/Prueba-Tecnica/:/src
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: Prueba-Tecnica
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Thomas44
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
