@@ -4,7 +4,7 @@ import { validatePartialUser } from "../UsersSchema";
 
 export const updateUser = async (req: Request, res: Response) => {
 
-    const { id } = req.body;
+    const { id } = req.params;
 
     const result = await validatePartialUser(req.body);
     try {
