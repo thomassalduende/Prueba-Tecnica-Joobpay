@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Users } from "../../Entities/Users";
 import { validatePartialUser } from "../UsersSchema";
+import { UserID } from "../../Service/UserID";
 
 export const updateUser = async (req: Request, res: Response) => {
 
@@ -9,11 +10,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const result = await validatePartialUser(req.body);
     try {
 
-        const user = await Users.findOne({
-            where: {
-                id: parseInt(id)
-            }
-        });
+        const user = await UserID(id);
 
         if (!result.success) {
             return res.status(400).json({ error: JSON.parse(result.error.message) })

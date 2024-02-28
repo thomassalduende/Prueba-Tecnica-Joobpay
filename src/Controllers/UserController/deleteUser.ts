@@ -1,15 +1,12 @@
 import { Request, Response } from "express";
 import { Users } from "../../Entities/Users";
+import { UserID } from "../../Service/UserID";
 
 export const deleteUser = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params
-        const user = await Users.findOne({
-            where: {
-                id: parseInt(id)
-            }
-        })
+        const user = await UserID(id);
 
         if (user) {
             await user.remove();
